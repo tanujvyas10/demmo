@@ -18,10 +18,16 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 require('dotenv').config()
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }))
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+var fileupload=require("express-fileupload")
+app.use(fileupload({
+  useTempFiles:true
+}))
 
 mongoose.connect("mongodb://localhost/hack_data2",{ useNewUrlParser: true });
 
